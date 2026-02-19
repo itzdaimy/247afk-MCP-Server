@@ -1,0 +1,35 @@
+{
+  "name": "247afk-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for the 247afk block editor",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "247afk-mcp": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "bridge.js",
+    "tools/",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "minecraft",
+    "mcp",
+    "247afk",
+    "block-editor",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "ws": "^8.19.0",
+    "zod": "^3.23.0"
+  }
+}
