@@ -47,7 +47,11 @@ claude mcp add 247afk-mcp -- npx -y 247afk-mcp
 ```
 
 ### Cursor
-[click here](cursor://anysphere.cursor-deeplink/mcp/install?name=247afk%20Block%20Editor%20MCP%20Server&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIjI0N2Fmay1tY3AiXX0=)
+
+paste this in your browser:
+```txt
+cursor://anysphere.cursor-deeplink/mcp/install?name=247afk%20Block%20Editor%20MCP%20Server&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIjI0N2Fmay1tY3AiXX0=
+```
 
 ### Manual
 1. Copy configuration below
