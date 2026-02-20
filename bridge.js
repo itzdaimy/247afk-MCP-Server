@@ -2,7 +2,7 @@ import { WebSocketServer } from 'ws'
 
 const ws_port = 3002
 const clients = new Set()
-let pendingGraph = null
+const pending = new Map()
 
 const wss = new WebSocketServer({ host: '127.0.0.1', port: ws_port })
 
@@ -12,9 +12,9 @@ wss.on('connection', (ws) => {
   ws.on('message', (raw) => {
     try {
       const msg = JSON.parse(raw.toString())
-      if (msg.type === 'graph_state' && pendingGraph) {
-        pendingGraph.resolve(msg)
-        pendingGraph = null
+      if (pending.has(msg.type)) {
+        pending.get(msg.type).resolve(msg)
+        pending.delete(msg.type)
       }
     } catch {}
   })
@@ -34,24 +34,28 @@ export function send(cmd) {
   }
 }
 
-export function getGraph(timeoutMs = 5000) {
+export function sendRequest(cmd, responseType, params = {}, timeoutMs = 5000) {
   if (!isConnected()) {
     return Promise.reject(new Error('No editor tab connected. Open the script editor first.'))
   }
-  if (pendingGraph) {
-    pendingGraph.reject(new Error('Superseded by a newer getGraph call'))
-    pendingGraph = null
+  if (pending.has(responseType)) {
+    pending.get(responseType).reject(new Error('Superseded by a newer request'))
   }
   return new Promise((resolve, reject) => {
-    pendingGraph = { resolve, reject }
-    send({ cmd: 'get_graph' })
+    const entry = { resolve, reject }
+    pending.set(responseType, entry)
+    send(Object.assign({}, params, { cmd }))
     setTimeout(() => {
-      if (pendingGraph) {
-        pendingGraph = null
+      if (pending.get(responseType) === entry) {
+        pending.delete(responseType)
         reject(new Error('Timed out waiting for editor response'))
       }
     }, timeoutMs)
   })
+}
+
+export function getGraph(timeoutMs = 5000) {
+  return sendRequest('get_graph', 'graph_state', {}, timeoutMs)
 }
 
 export function requireBridge() {
