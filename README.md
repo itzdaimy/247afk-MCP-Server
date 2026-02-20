@@ -1,10 +1,11 @@
 # 247afk Block Editor MCP Server
 
-Lets AI assistants build and edit block editor scripts in real time. For the website https://247afk.com
+Lets AI assistants (Claude Desktop, Cline, Cursor, and any MCP-compatible client) build and edit block editor scripts in real time.
+
 ## How it works
 
 1. The MCP server runs locally and starts a WebSocket bridge on `127.0.0.1:3002`
-2. Open a script in the 247afk editor, it connects to the bridge automatically
+2. Open a script in the 247afk editor — it connects to the bridge automatically
 3. Your AI can now read and edit your script live through the tools below
 
 ## Install
@@ -12,11 +13,6 @@ Lets AI assistants build and edit block editor scripts in real time. For the web
 ```bash
 npm install -g 247afk-mcp
 ```
-or run
-```bash
-npx 247afk-mcp
-```
-(note: mcp clienrs usually already do this)
 
 ## Configure your AI client
 
@@ -39,7 +35,30 @@ Click manage mcp servers then view raw config and paste the code below
 
 Restart antigravity/claude code after saving. 
 
+## Test without an AI client
+
+```bash
+npx @modelcontextprotocol/inspector 247afk-mcp
+```
+
 Opens a browser UI to call tools manually.
+
+## Changelog
+
+### 1.0.1
+- Added `update_node_data` — merge field values into a node without replacing it
+- Added `move_node` — reposition a node on the canvas
+- Added `get_node` — inspect a single node's type, position, and data
+- Added `clear_graph` — wipe all nodes and edges while keeping variables
+- Added `validate_graph` — run client-side validation and return errors/warnings
+- Added `save_graph` — save the script to the server (equivalent to Ctrl+S)
+- Added `auto_layout` — auto-arrange nodes left-to-right by execution flow
+- Added `add_variable` — add or replace a single variable without touching others
+- Added `remove_variable` — remove a single variable by name
+- Fixed variable picker dropdowns being empty in MCP-built graphs
+
+### 1.0.0
+- Initial release
 
 ## Requirements
 
