@@ -5,6 +5,7 @@ import './bridge.js'
 import { registerDocsTool } from './tools/docs.js'
 import { registerGraphTools } from './tools/graph.js'
 import { registerNodeTools } from './tools/nodes.js'
+import { registerVariableTools } from './tools/variables.js'
 
 const server = new McpServer({
   name: '247afk-block-editor',
@@ -14,6 +15,7 @@ const server = new McpServer({
 registerDocsTool(server)
 registerGraphTools(server)
 registerNodeTools(server)
+registerVariableTools(server)
 
 const transport = new StdioServerTransport()
 await server.connect(transport)
