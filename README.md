@@ -14,24 +14,61 @@ Lets AI assistants (Claude Desktop, Cline, Cursor, and any MCP-compatible client
 npm install -g 247afk-mcp
 ```
 
-## Configure your AI client
+## Get Started
 
-### AntiGravity / Claude Code
-
-Open AntiGravity and go to mcp servers in the AI chat. 
-Click manage mcp servers then view raw config and paste the code below
-
-```json
-  {
-    "mcpServers": {
-      "247afk-mcp": {
-        "command": "npx",
-        "args": ["-y", "247afk-mcp"]
-      }
-    }
-  }
+### Codex CLI
+```bash
+codex mcp add 247afk-mcp -- npx -y 247afk-mcp
 ```
 
+### Gemini CLI
+```bash
+gemini mcp add 247afk-mcp npx "-y 247afk-mcp"
+```
+
+### Claude Code
+```bash
+claude mcp add 247afk-mcp -- npx -y 247afk-mcp
+```
+
+### Claude Desktop
+```json
+{
+  "mcpServers": {
+    "247afk-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "247afk-mcp"
+      ]
+    }
+  }
+}
+```
+
+### Cursor
+[click here](cursor://anysphere.cursor-deeplink/mcp/install?name=247afk%20Block%20Editor%20MCP%20Server&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIjI0N2Fmay1tY3AiXX0=)
+
+### Manual
+1. Copy configuration below
+2. Add it to your MCP client configuration
+3. Follow your client's specific setup instructions
+4. Restart your MCP client to apply changes
+
+Configuration
+```json
+{
+  "mcpServers": {
+    "247afk-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "247afk-mcp"
+      ]
+    }
+  }
+}
+```
 
 Restart antigravity/claude code after saving. 
 
