@@ -1,11 +1,11 @@
 {
   "name": "247afk-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for the 247afk block editor",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "247afk-mcp": "./index.js"
+    "247afk-mcp": "index.js"
   },
   "files": [
     "index.js",
