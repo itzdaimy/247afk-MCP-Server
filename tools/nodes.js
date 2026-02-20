@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { send, requireBridge } from '../bridge.js'
+import { send, sendRequest, requireBridge } from '../bridge.js'
 
 export function registerNodeTools(server) {
   server.tool(
@@ -74,6 +74,65 @@ export function registerNodeTools(server) {
       if (err) return { content: [{ type: 'text', text: err }], isError: true }
       send({ cmd: 'set_variables', variables })
       return { content: [{ type: 'text', text: `${variables.length} variables dispatched` }] }
+    }
+  )
+
+  server.tool(
+    'update_node_data',
+    'Update input field values on an existing node. Only the fields you provide are changed — other data is preserved. Use get_graph first to get the node id.',
+    {
+      nodeId: z.string().min(1).describe('The id of the node to update'),
+      data: z.record(z.unknown()).describe('Fields to merge into the node data, keyed by port name')
+    },
+    async ({ nodeId, data }) => {
+      const err = requireBridge()
+      if (err) return { content: [{ type: 'text', text: err }], isError: true }
+      send({ cmd: 'update_node_data', nodeId, data })
+      return { content: [{ type: 'text', text: `Node ${nodeId} data update dispatched` }] }
+    }
+  )
+
+  server.tool(
+    'move_node',
+    'Move a node to a new canvas position.',
+    {
+      nodeId: z.string().min(1).describe('The id of the node to move'),
+      position: z.object({ x: z.number(), y: z.number() }).describe('New canvas coordinates')
+    },
+    async ({ nodeId, position }) => {
+      const err = requireBridge()
+      if (err) return { content: [{ type: 'text', text: err }], isError: true }
+      send({ cmd: 'move_node', nodeId, position })
+      return { content: [{ type: 'text', text: `Node ${nodeId} moved to (${position.x}, ${position.y})` }] }
+    }
+  )
+
+  server.tool(
+    'get_node',
+    'Get the full state of a single node by id. Returns type, position, and data. The editor tab must be open.',
+    {
+      nodeId: z.string().min(1).describe('The id of the node to inspect')
+    },
+    async ({ nodeId }) => {
+      try {
+        const reply = await sendRequest('get_node', 'node_state', { nodeId })
+        if (!reply.node) return { content: [{ type: 'text', text: `Node ${nodeId} not found` }], isError: true }
+        return { content: [{ type: 'text', text: JSON.stringify(reply.node, null, 2) }] }
+      } catch (err) {
+        return { content: [{ type: 'text', text: `Error: ${err.message}` }], isError: true }
+      }
+    }
+  )
+
+  server.tool(
+    'clear_graph',
+    'Remove all nodes and edges from the canvas. Irreversible — all nodes and edges are permanently removed. Variables are preserved.',
+    {},
+    async () => {
+      const err = requireBridge()
+      if (err) return { content: [{ type: 'text', text: err }], isError: true }
+      send({ cmd: 'clear_graph' })
+      return { content: [{ type: 'text', text: 'Graph cleared' }] }
     }
   )
 }
