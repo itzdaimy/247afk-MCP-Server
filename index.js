@@ -9,7 +9,7 @@ import { registerVariableTools } from './tools/variables.js'
 
 const server = new McpServer({
   name: '247afk-block-editor',
-  version: '1.0.0'
+  version: '1.0.1'
 })
 
 registerDocsTool(server)
