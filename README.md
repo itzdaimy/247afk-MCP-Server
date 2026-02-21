@@ -5,8 +5,8 @@ Lets AI assistants (Claude Desktop, Cline, Cursor, and any MCP-compatible client
 ## How it works
 
 1. The MCP server runs locally and starts a WebSocket bridge on `127.0.0.1:3002`
-2. Open a script in the 247afk editor — it connects to the bridge automatically
-3. Your AI can now read and edit your script live through the tools below
+2. Open a script in the 247afk editor, the site will connect to your websocket. 
+3. Your ai assistant can now use the MCP server to make changes in scripts. 
 
 ## Install
 
