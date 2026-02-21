@@ -105,4 +105,4 @@ Opens a browser UI to call tools manually.
 
 - Node.js 18 or later
 - 247afk account with access to the script editor 
-- Browser open on the script to edit.
+- Browser open on the script to edit. (on https://247afk.com)
