@@ -8,6 +8,8 @@ Lets AI assistants (Claude Desktop, Cline, Cursor, and any MCP-compatible client
 2. Open a script in the 247afk editor, the site will connect to your websocket. 
 3. Your ai assistant can now use the MCP server to make changes in scripts. 
 
+NPM package -> https://www.npmjs.com/package/247afk-mcp
+
 ## Install
 
 ```bash
